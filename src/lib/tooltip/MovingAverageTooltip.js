@@ -21,11 +21,11 @@ class SingleMAToolTip extends Component {
 		onClick({ chartId: forChart, ...options }, e);
 	}
 	render() {
-		const { textFill, labelFill } = this.props;
+		const { lineWidth, textFill, labelFill } = this.props;
 		const translate = "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")";
 		return (
 			<g transform={translate}>
-				<line x1={0} y1={2} x2={0} y2={28} stroke={this.props.color} strokeWidth="4px"/>
+				<line x1={0} y1={2} x2={0} y2={28} stroke={this.props.color} strokeWidth={lineWidth+"px"}/>
 				<ToolTipText x={5} y={11}
 					fontFamily={this.props.fontFamily} fontSize={this.props.fontSize}>
 					<ToolTipTSpanLabel fill={labelFill}>{this.props.displayName}</ToolTipTSpanLabel>
@@ -45,6 +45,7 @@ SingleMAToolTip.propTypes = {
 	displayName: PropTypes.string.isRequired,
 	value: PropTypes.string.isRequired,
 	onClick: PropTypes.func,
+	lineWidth: PropTypes.number,
 	fontFamily: PropTypes.string,
 	textFill: PropTypes.string,
 	labelFill: PropTypes.string,
@@ -64,7 +65,7 @@ class MovingAverageTooltip extends Component {
 		const { chartId } = moreProps;
 		const { chartConfig } = moreProps;
 
-		const { className, onClick, width, fontFamily, fontSize, textFill, labelFill } = this.props;
+		const { className, onClick, width, lineWidth, fontFamily, fontSize, textFill, labelFill } = this.props;
 		const { origin: originProp, displayFormat, options } = this.props;
 		const { chartConfig: { height } } = moreProps;
 
@@ -92,6 +93,7 @@ class MovingAverageTooltip extends Component {
 							options={each}
 							forChart={chartId}
 							onClick={onClick}
+							lineWidth={lineWidth}
 							fontFamily={fontFamily}
 							fontSize={fontSize}
 							textFill={textFill}
@@ -116,6 +118,7 @@ MovingAverageTooltip.propTypes = {
 	origin: PropTypes.array.isRequired,
 	displayValuesFor: PropTypes.func,
 	onClick: PropTypes.func,
+	lineWidth: PropTypes.number,
 	textFill: PropTypes.string,
 	labelFill: PropTypes.string,
 	fontFamily: PropTypes.string,
@@ -136,6 +139,7 @@ MovingAverageTooltip.defaultProps = {
 	displayValuesFor: displayValuesFor,
 	origin: [0, 10],
 	width: 65,
+	lineWidth: 4,
 };
 
 export default MovingAverageTooltip;
